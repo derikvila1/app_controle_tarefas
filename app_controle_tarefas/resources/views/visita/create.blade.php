@@ -52,7 +52,7 @@
                    
                         <div class="mb-3">
                             <label class="form-label">Quantidade de pessoas:</label>
-                            <input type="number" class="form-control" name="participantes" :value="old('participantes')" required>
+                            <input type="number" class="form-control" name="participantes"  required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
