@@ -23,7 +23,7 @@ class CreateVisitasTable extends Migration
             $table->bigInteger('idade');
             $table->boolean('confirmed')->nullable();
             $table->bigInteger('solicitante');
-            $table->bigInteger('spaceCode')->nullable;
+            $table->bigInteger('spaceCode')->nullable();
             $table->timestamps();
         });
     }

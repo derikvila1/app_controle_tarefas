@@ -10,9 +10,9 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('visita.store') }}">
                         @csrf
-                        <label for="address" >Espaços Culturais</label>
                         <div class="mb-3">
-                            <select class="form-control" >
+                            <label for="address" >Espaços Culturais</label>
+                            <select class="form-control" name="address" >
                                 <option value="Centro Cultural dos Povos da Amazônia">Centro Cultural dos Povos da Amazônia </option>
                                 <option value="Palacete Provincial">Palacete Provincial</option>
                                 <option value="Centro Cultural Palácio Rio Negro">Centro Cultural Palácio Rio Negro</option>
@@ -46,14 +46,33 @@
                                 <option value="18:00">18:00</option>
                                 <option value="19:00">19:00</option>
                                 <option value="20:00">20:00</option>
+                                </select>
                         </div>
 
-
-                   
                         <div class="mb-3">
                             <label class="form-label">Quantidade de pessoas:</label>
                             <input type="number" class="form-control" name="participantes"  required>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nome do Responsável: </label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Série : </label>
+                            <input type="text" class="form-control" name="série" required>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label">Idade :</label>
+                            <input type="number" class="form-control" name="idade"  required>
+                        </div>
+
+
+
+
 
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
 

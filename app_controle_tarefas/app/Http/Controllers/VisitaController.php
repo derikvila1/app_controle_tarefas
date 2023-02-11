@@ -40,12 +40,14 @@ class VisitaController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all('id','address','day','participantes','name','série','idade','confirmed');
+        $dados = $request->all('address','day','participantes','name','série','idade','confirmed',);
         $dados['solicitante'] = auth()->user()->id;
+        $dados['confirmed'] = 0;
+        $dados['spaceCode'] = 0;
 
         $visita = Visita::create($dados);
 
-        return redirect()->route('visita.show', ['visita' => $visita->id]);
+        return redirect()->route('visita.show', $visita->id);
          
     }
 
@@ -57,7 +59,7 @@ class VisitaController extends Controller
      */
     public function show(Visita $visita)
     {
-        //
+        return view('visita.show', ['visita' => $visita]);
     }
 
     /**
