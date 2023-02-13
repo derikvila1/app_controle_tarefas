@@ -40,15 +40,28 @@ class VisitaController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all('address','day','participantes','name','série','idade','confirmed',);
-        $dados['solicitante'] = auth()->user()->id;
+
+        $spaces = array(
+            0 => "Centro Cultural dos Povos da Amazônia",
+            1 => "Palacete Provincial",
+            2 => "Centro Cultural Palácio Rio Negro",
+            3 => "Galeria do Largo",
+            4 => "Casa das Artes",
+            5 => "Centro Cultural Palácio da Justiça",
+            6 => "Teatro Amazonas",
+            7 => "Museu Seringal Vila Paraiso",
+            8 => "Parques Culturais - Rio Negro ou Jefferson Peres"
+        );
+
+        $dados = $request->all('address', 'day', 'participantes', 'name', 'série', 'idade', 'confirmed', );
+        $dados['requesterId'] = auth()->user()->id;
         $dados['confirmed'] = 0;
         $dados['spaceCode'] = 0;
 
         $visita = Visita::create($dados);
 
         return redirect()->route('visita.show', $visita->id);
-         
+
     }
 
     /**

@@ -15,15 +15,18 @@ class CreateVisitasTable extends Migration
     {
         Schema::create('visitas', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
+            $table->bigInteger('requesterId');
+            $table->string('status')->default('pending');
+            $table->string('spaceName');
+            $table->bigInteger('spaceCode');
             $table->string('day');
-            $table->bigInteger('participantes');
+            $table->string('hour');
+            $table->bigInteger('peopleNumber');
             $table->string('name');
-            $table->string('série');
-            $table->bigInteger('idade');
-            $table->boolean('confirmed')->nullable();
-            $table->bigInteger('solicitante');
-            $table->bigInteger('spaceCode')->nullable();
+            $table->string('grade');
+            $table->bigInteger('age');
+            $table->boolean('pcd')->default(false);
+            $table->string('pcdType');
             $table->timestamps();
         });
     }
