@@ -19,7 +19,10 @@ class VisitaController extends Controller
      */
     public function index()
     {
-        return view('visita.index');
+
+        $user_id = auth()->user()->id;
+        $visitas = Visita::where('requesterId', $user_id)->paginate(10);
+        return view('visita.index',['visitas' => $visitas]);
     }
 
     /**
@@ -40,15 +43,41 @@ class VisitaController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all('address','day','participantes','name','série','idade','confirmed',);
-        $dados['solicitante'] = auth()->user()->id;
-        $dados['confirmed'] = 0;
+
+        $spaces = array(
+            0 => "Centro Cultural dos Povos da Amazônia",
+            1 => "Palacete Provincial",
+            2 => "Centro Cultural Palácio Rio Negro",
+            3 => "Galeria do Largo",
+            4 => "Casa das Artes",
+            5 => "Centro Cultural Palácio da Justiça",
+            6 => "Teatro Amazonas",
+            7 => "Museu Seringal Vila Paraiso",
+            8 => "Parques Culturais - Rio Negro ou Jefferson Peres"
+        );
+
+        $dados = $request->all(
+            'spaceName',
+            'spaceCode',
+            'day',
+            'hour',
+            'peopleNumber',
+            'name',
+            'grade',
+            'age',
+            'pcd',
+            'pcdType',
+            'requesterId'
+             );
+        $dados['requesterId'] = auth()->user()->id;
         $dados['spaceCode'] = 0;
+        
+        
 
         $visita = Visita::create($dados);
 
-        return redirect()->route('visita.show', $visita->id);
-         
+        return redirect()->route('visita.show', ['visita' => $visita->id]);
+
     }
 
     /**
@@ -59,7 +88,9 @@ class VisitaController extends Controller
      */
     public function show(Visita $visita)
     {
+
         return view('visita.show', ['visita' => $visita]);
+
     }
 
     /**

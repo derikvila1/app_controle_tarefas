@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
-<!-- @php
-dd($visita)
+<!-- @section('content')
+@php
+dd($visita);
 @endphp -->
 
-{{$visita -> id}}
+{{$visita->status}}
 @endsection
