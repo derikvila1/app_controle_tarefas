@@ -9,6 +9,7 @@ class Visita extends Model
 {
     use HasFactory;
     protected $fillable = [
+    'id',
      'status',
     'spaceName',
     'spaceCode',

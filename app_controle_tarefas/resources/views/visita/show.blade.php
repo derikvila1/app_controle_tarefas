@@ -1,4 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
+<!-- @section('content')
+@php
+dd($visita);
+@endphp -->
+
+{{$visita->status}}
 @endsection

@@ -76,7 +76,7 @@ class VisitaController extends Controller
 
         $visita = Visita::create($dados);
 
-        return redirect()->route('visita.show', $visita->id);
+        return redirect()->route('visita.show', ['visita' => $visita->id]);
 
     }
 
@@ -88,7 +88,9 @@ class VisitaController extends Controller
      */
     public function show(Visita $visita)
     {
+
         return view('visita.show', ['visita' => $visita]);
+
     }
 
     /**

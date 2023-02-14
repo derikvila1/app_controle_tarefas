@@ -28,7 +28,7 @@
                                 <th scope="col">Local da visita</th>
                                 <th scope="col">Data da visita</th>
                                 <th scope="col"> Horário</th>
-                                <th></th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
 
@@ -39,6 +39,18 @@
                                     <td>{{ $v['spaceName'] }}</td>
                                     <td>{{ date('d/m/Y', strtotime($v['day'])) }}</td>
                                     <td>{{ $v['hour'] }}</td>
+                                    <td>
+                                        @if($v['status'] == "pending")
+                                            <button type="button" class="btn btn-warning">Pendente</button>
+                                        @elseif($v['status'] == "confirmed")
+                                             <button type="button" class="btn btn-success">Confirmado</button>
+                                        @else
+                                            <button type="button" class="btn btn-dark">Cancelado</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('visita.show', $v['id']) }}">Consultar</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

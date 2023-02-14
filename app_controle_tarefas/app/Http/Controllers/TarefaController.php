@@ -50,8 +50,8 @@ class TarefaController extends Controller
         
         $tarefa = Tarefa::create($dados);
 
-        $destinario = auth()->user()->email; //e-mail do usuário logado (autenticado)
-        Mail::to($destinario)->send(new NovaTarefaMail($tarefa));
+        // $destinario = auth()->user()->email; //e-mail do usuário logado (autenticado)
+        // Mail::to($destinario)->send(new NovaTarefaMail($tarefa));
 
         return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
     }
