@@ -19,7 +19,10 @@ class VisitaController extends Controller
      */
     public function index()
     {
-        return view('visita.index');
+
+        $user_id = auth()->user()->id;
+        $visitas = Visita::where('requesterId', $user_id)->paginate(10);
+        return view('visita.index',['visitas' => $visitas]);
     }
 
     /**
@@ -53,10 +56,23 @@ class VisitaController extends Controller
             8 => "Parques Culturais - Rio Negro ou Jefferson Peres"
         );
 
-        $dados = $request->all('address', 'day', 'participantes', 'name', 'série', 'idade', 'confirmed', );
+        $dados = $request->all(
+            'spaceName',
+            'spaceCode',
+            'day',
+            'hour',
+            'peopleNumber',
+            'name',
+            'grade',
+            'age',
+            'pcd',
+            'pcdType',
+            'requesterId'
+             );
         $dados['requesterId'] = auth()->user()->id;
-        $dados['confirmed'] = 0;
         $dados['spaceCode'] = 0;
+        
+        
 
         $visita = Visita::create($dados);
 

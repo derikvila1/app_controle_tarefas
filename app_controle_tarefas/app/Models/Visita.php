@@ -8,7 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Visita extends Model
 {
     use HasFactory;
-    protected $fillable = ['address', 'day', 'hour','participantes','name','série','idade','confirmed','solicitante','SpaceCode'];
+    protected $fillable = [
+     'status',
+    'spaceName',
+    'spaceCode',
+    'day',
+    'hour',
+    'peopleNumber',
+    'name',
+    'grade',
+    'age',
+    'pcd',
+    'pcdType',
+    'requesterId'
+    ];
     
     public function user() {
         //belongsTo (pertence a)
