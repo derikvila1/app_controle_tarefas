@@ -2,13 +2,69 @@
 
 @section('content')
     <script>
-        function validateDatePicker(e) {
+        const spaces = <?php echo $spaces; ?>;
+        let spaceSelected;
+        let hourSelection;
+
+        function validateDatePicker(date) {
             let errorSpan = document.getElementById('dateError')
-            if (new Date(e.value).getDay() === 0) {
-                errorSpan.classList.remove("d-none");
-            } else {
-                errorSpan.classList.add("d-none");
+            let hourInput = document.getElementById('hourInput')
+
+            while (hourInput.lastElementChild) {
+                hourInput.removeChild(hourInput.lastElementChild);
             }
+            let opt = document.createElement('option');
+            opt.value = -1;
+            hourInput.appendChild(opt);
+
+            const spaceSchedules = JSON.parse(spaces[spaceSelected].schedules);
+            const dayOfWeek = new Date(date).getDay();
+            const hoursAvailable = spaceSchedules.find(value => value.day === dayOfWeek);
+
+            if (!hoursAvailable || (new Date(date) - Date.now() <= 0)) {
+                errorSpan.classList.remove("d-none");
+                hourInput.disabled = true;
+                hourSelection = undefined;
+                return;
+            }
+
+            errorSpan.classList.add("d-none");
+            hourInput.disabled = false
+
+            for (let i = hoursAvailable.firstHour; i <= hoursAvailable.lastHour; i++) {
+                opt = document.createElement('option');
+                opt.value = `${i}:00`;
+                opt.innerHTML = `${i}:00`;
+                hourInput.appendChild(opt);
+            }
+        }
+
+        function spaceSelection(spaceId) {
+
+            let datePicker = document.getElementById('datePicker');
+            let hourInput = document.getElementById('hourInput');
+
+            spaceSelected = spaceId;
+            if (spaceSelected !== -1) {
+                datePicker.disabled = false
+            }
+        }
+
+        function validateNumber(value, inputId) {
+            let inputNumber = document.getElementById(inputId);
+            if (value < 1) {
+                inputNumber.value = 1
+            }
+        }
+
+
+
+        function validateSubmit() {
+            if (!hourSelection) {
+                alert('Preencha todos os campos para continuar!');
+                return;
+            }
+            document.getElementById("formVisita").submit();
         }
     </script>
     <div class="container">
@@ -18,58 +74,42 @@
                     <div class="card-header">Agendar Visita</div>
 
                     <div class="card-body">
-                        <form method="post" action="{{ route('visita.store') }}">
+                        <form method="post" id="formVisita" action="{{ route('visita.store') }}"
+                            onsubmit="event.preventDefault(); validateSubmit();" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="spaceName">Espaços Culturais:</label>
-                                <select class="form-control" name="spaceName">
-                                    <option value="Centro Cultural dos Povos da Amazônia">Centro Cultural dos Povos da
-                                        Amazônia </option>
-                                    <option value="Palacete Provincial">Palacete Provincial</option>
-                                    <option value="Centro Cultural Palácio Rio Negro">Centro Cultural Palácio Rio Negro
-                                    </option>
-                                    <option value="Galeria do Largo">Galeria do Largo</option>
-                                    <option value="Casa das Artes">Casa das Artes</option>
-                                    <option value="Centro Cultural Palácio da Justiça">Centro Cultural Palácio da Justiça
-                                    </option>
-                                    <option value="Teatro Amazonas">Teatro Amazonas</option>
-                                    <option value="Museu Seringal Vila Paraiso">Museu Seringal Vila Paraiso</option>
-                                    <option value="Parques Culturais - Rio Negro ou Jefferson Peres">Parques Culturais - Rio
-                                        Negro ou Jefferson Peres</option>
+                                <label for="space">Espaços Culturais:</label>
+                                <select id='space' class="form-control" name="space"
+                                    onchange='spaceSelection(this.value)' required>
+                                    <option value='-1'></option>
+
+                                    @foreach ($spaces as $space)
+                                        <option value={{ $space->id }}>{{ $space->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Data da Visita: </label>
-                                <span class="d-none text-danger" id="dateError">Eventos não disponíveis às
-                                    segundas-feiras</span>
-                                <input id="datePicker" type="date" class="form-control" name="day" required
-                                    onchange="validateDatePicker(this)">
+                                <span class="d-none text-danger" id="dateError">Não haverá funcionamento na data
+                                    selecionada!</span>
+                                <input id="datePicker" disabled type="date" class="form-control" name="day" required
+                                    onchange="validateDatePicker(this.value)">
                                 <script></script>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Horário da Visita:</label>
-                                <select class="form-control" name="hour" required>
-                                    <option value="8:00">8:00</option>
-                                    <option value="9:00">9:00</option>
-                                    <option value="10:00">10:00</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="12:00">12:00</option>
-                                    <option value="13:00">13:00</option>
-                                    <option value="14:00">14:00</option>
-                                    <option value="15:00">15:00</option>
-                                    <option value="16:00">16:00</option>
-                                    <option value="17:00">17:00</option>
-                                    <option value="18:00">18:00</option>
-                                    <option value="19:00">19:00</option>
-                                    <option value="20:00">20:00</option>
+                                <select id='hourInput' disabled class="form-control" name="hour" required
+                                    onchange="hourSelection=this.value">
+                                    <option value="-1"></option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Quantidade de pessoas:</label>
-                                <input type="number" class="form-control" name="peopleNumber" required>
+                                <input id="peopleNumber" type="number" class="form-control" name="peopleNumber"
+                                    onchange="validateNumber(this.value,'peopleNumber')" required>
                             </div>
 
                             <div class="mb-3">
@@ -85,21 +125,28 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Idade :</label>
-                                <input type="number" class="form-control" name="age" required>
+                                <input id="ageInput" type="number" class="form-control" name="age" required
+                                    onchange="validateNumber(this.value,'ageInput')">
                             </div>
+
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Declaração do diretor: </label>
+                                <input name='file' class="form-control" type="file" id="formFile" accept=".pdf"
+                                    required>
+                            </div>
+
                             <div class="mb-4">
                                 <label class="form-label" for="pcdCheckBox">
                                     Pessoa com deficienciência:
                                 </label>
                                 <br>
-                                <input type="checkbox" class="form-check-input ml-1 " value="" id="pcdCheckBox">
+                                <input type="checkbox" class="form-check-input ml-1 " id="pcdCheckBox" name='pcd'>
                             </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Especifique a necessidade : </label>
                                 <input type="text" class="form-control" name="pcdType">
                             </div>
-
-
 
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
 

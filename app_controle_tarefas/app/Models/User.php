@@ -43,20 +43,24 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendPasswordResetNotification($token) {
+    public function sendPasswordResetNotification($token)
+    {
         $this->notify(new RedefinirSenhaNotification($token, $this->email, $this->name));
     }
 
-    public function sendEmailVerificationNotification() {
+    public function sendEmailVerificationNotification()
+    {
         $this->notify(new VerificarEmailNotification($this->name));
     }
 
-    public function tarefas() {
+    public function tarefas()
+    {
         //hasMany (tem muitos)
         return $this->hasMany('App\Models\Tarefa');
     }
 
-    public function visitas() {
+    public function visitas()
+    {
         //hasMany (tem muitos)
         return $this->hasMany('App\Models\Visita');
     }

@@ -9,23 +9,29 @@ class Visita extends Model
 {
     use HasFactory;
     protected $fillable = [
-    'id',
-     'status',
-    'spaceName',
-    'spaceCode',
-    'day',
-    'hour',
-    'peopleNumber',
-    'name',
-    'grade',
-    'age',
-    'pcd',
-    'pcdType',
-    'requesterId'
+        'status',
+        'spaceName',
+        'space_id',
+        'day',
+        'hour',
+        'peopleNumber',
+        'name',
+        'grade',
+        'age',
+        'pcd',
+        'pcdType',
+        'user_id',
+        'fileName'
     ];
-    
-    public function user() {
+
+    public function user()
+    {
         //belongsTo (pertence a)
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function space()
+    {
+        return $this->hasOne('App\Models\Spaces');
     }
 }
