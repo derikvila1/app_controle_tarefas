@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visita;
+use App\Models\Space;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class VisitaController extends Controller
 {
@@ -21,8 +23,8 @@ class VisitaController extends Controller
     {
 
         $user_id = auth()->user()->id;
-        $visitas = Visita::where('requesterId', $user_id)->paginate(10);
-        return view('visita.index',['visitas' => $visitas]);
+        $visitas = Visita::where('user_id', $user_id)->paginate(10);
+        return view('visita.index', ['visitas' => $visitas]);
     }
 
     /**
@@ -32,7 +34,8 @@ class VisitaController extends Controller
      */
     public function create()
     {
-        return view('visita.create');
+        $spaces = Space::where('available', 1)->get();
+        return view('visita.create', ['spaces' => $spaces]);
     }
 
     /**
@@ -44,21 +47,7 @@ class VisitaController extends Controller
     public function store(Request $request)
     {
 
-        $spaces = array(
-            0 => "Centro Cultural dos Povos da Amazônia",
-            1 => "Palacete Provincial",
-            2 => "Centro Cultural Palácio Rio Negro",
-            3 => "Galeria do Largo",
-            4 => "Casa das Artes",
-            5 => "Centro Cultural Palácio da Justiça",
-            6 => "Teatro Amazonas",
-            7 => "Museu Seringal Vila Paraiso",
-            8 => "Parques Culturais - Rio Negro ou Jefferson Peres"
-        );
-
         $dados = $request->all(
-            'spaceName',
-            'spaceCode',
             'day',
             'hour',
             'peopleNumber',
@@ -67,16 +56,20 @@ class VisitaController extends Controller
             'age',
             'pcd',
             'pcdType',
-            'requesterId'
-             );
-        $dados['requesterId'] = auth()->user()->id;
-        $dados['spaceCode'] = 0;
-        
-        
+        );
+        $fileName = Str::uuid() . '.pdf';
+        $dados['fileName'] = $fileName;
+        $dados['pcd'] = isset($dados['pcd']) ? true : false;
+        $dados['pcdType'] = isset($dados['pcdType']) ? $dados['pcdType'] : '';
+        $dados['space_id'] = $request->space;
+        $dados['spaceName'] = Space::find($dados['space_id'])->name;
+        $dados['user_id'] = auth()->user()->id;
+
+        $request->file->storeAs('documents', $fileName);
 
         $visita = Visita::create($dados);
 
-        return redirect()->route('visita.show', ['visita' => $visita->id]);
+        return view('visita.show', ['visita' => $visita]);
 
     }
 

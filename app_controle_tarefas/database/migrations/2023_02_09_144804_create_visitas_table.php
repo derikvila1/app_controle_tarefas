@@ -15,10 +15,9 @@ class CreateVisitasTable extends Migration
     {
         Schema::create('visitas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('requesterId');
             $table->string('status')->default('pending');
             $table->string('spaceName');
-            $table->bigInteger('spaceCode');
+            $table->bigInteger('space_id');
             $table->string('day');
             $table->string('hour');
             $table->bigInteger('peopleNumber');
@@ -27,6 +26,7 @@ class CreateVisitasTable extends Migration
             $table->bigInteger('age');
             $table->boolean('pcd')->default(false);
             $table->string('pcdType');
+            $table->string('fileName');
             $table->timestamps();
         });
     }
