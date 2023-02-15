@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Mail\MensagemTesteMail;
+use App\Controller\VisitaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +34,19 @@ Route::get('tarefa/exportar', 'App\Http\Controllers\TarefaController@exportar')
     ->name('tarefa.exportar');
     
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
+->middleware('verified');
+
+Route::resource('visita', 'App\Http\Controllers\VisitaController')
     ->middleware('verified');
+
+
+Route::get('consult/{id}', 'App\Http\Controllers\VisitaController@consultById')
+    ->name('consultById')
+    ->middleware('verified');
+    
 
 Route::get('/mensagem-teste', function() {
     return new MensagemTesteMail();
     //Mail::to('atendimento@jorgesantana.net.br')->send(new MensagemTesteMail());
     //return 'E-mail enviado com sucesso!';
 });
-
-Route::resource('visita', 'App\Http\Controllers\VisitaController')
-    ->middleware('verified');

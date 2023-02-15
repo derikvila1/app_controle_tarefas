@@ -49,6 +49,7 @@
                                     <td>{{ $t['tarefa'] }}</td>
                                     <td>{{ date('d/m/Y', strtotime($t['data_limite_conclusao'])) }}</td>
                                     <td><a href="{{ route('tarefa.edit', $t['id']) }}">Editar</a></td>
+                                    <td><a href="{{ route('tarefa.show', $t['id']) }}">mostrar</a></td>
                                     <td>
                                         <form id="form_{{$t['id']}}" method="post" action="{{ route('tarefa.destroy', ['tarefa' => $t['id']]) }}">
                                             @method('DELETE')

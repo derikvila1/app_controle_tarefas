@@ -49,7 +49,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('visita.show', $v['id']) }}">Consultar</a>
+                                        <a href="{{route('consultById')}}">ddd</a>
                                     </td>
                                 </tr>
                             @endforeach
