@@ -68,7 +68,7 @@ class VisitaController extends Controller
         $request->file->storeAs('documents', $fileName);
 
         $visita = Visita::create($dados);
-        
+
         return view('visita.show', ['visita' => $visita]);
 
     }
@@ -93,7 +93,14 @@ class VisitaController extends Controller
         // return $visita;
         return view('visita.show', ['visita' => $visita]);
     }
-  
+
+    public function cancelById(Request $request)
+    {
+        $id = $request->id;
+        $visita = Visita::find($id);
+        // return $visita;
+        return view('visita.show', ['visita' => $visita]);
+    }
 
     /**
      * Show the form for editing the specified resource.
