@@ -45,9 +45,15 @@
             let hourInput = document.getElementById('hourInput');
 
             spaceSelected = spaceId;
-            if (spaceSelected !== -1) {
-                datePicker.disabled = false
+            if (spaceSelected !== '-1') {
+                datePicker.disabled = false;
+                validateDatePicker(datePicker.value);
+                return;
             }
+            datePicker.disabled = true;
+            datePicker.value = '';
+            hourInput.disabled = true;
+            hourInput.value = '-1';
         }
 
         function validateNumber(value, inputId) {
