@@ -17,7 +17,7 @@ class VisitaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -37,16 +37,16 @@ class VisitaController extends Controller
 
             return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
         }
-        if ($userType === "user") {
-            $visitas = Visita::where('user_id', $user_id)->paginate(10);
-            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
-        }
+
+        $visitas = Visita::where('user_id', $user_id)->paginate(10);
+        return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -58,7 +58,7 @@ class VisitaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function store(Request $request)
     {
@@ -93,7 +93,7 @@ class VisitaController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Visita  $visita
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show($id, Visita $visita)
     {
@@ -144,13 +144,59 @@ class VisitaController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Visita  $visita
-     * @return \Illuminate\Http\Response
+     * @return  \Illuminate\Http\JsonResponse
      */
-    public function edit(Request $request, Visita $visita)
+    public function filterVisit(Request $request)
     {
+        $userType = json_decode(auth()->user()->roles)->type;
 
 
+        if (isset($request->id)) {
+            return response()->json([Visita::find($request->id)]);
+        }
+
+        $status = isset($request->status) ? $request->status : ['pending', 'reviewed', 'confirmed', 'canceled'];
+
+        if (isset($request->dateMonth) && isset($request->dateYear)) {
+            return response()->json(Visita::whereIn('status', $status)
+                ->whereMonth('day', $request->dateMonth)
+                ->whereYear('day', $request->dateYear)->get());
+        }
+
+        if (isset($request->dateMonth)) {
+            return response()->json(Visita::whereIn('status', $status)
+                ->whereMonth('day', $request->dateMonth)->get());
+        }
+
+        if (isset($request->dateYear)) {
+            return response()->json(Visita::whereIn('status', $status)
+                ->whereYear('day', $request->dateYear)->get());
+        }
+
+        if (isset($request->dayStart) && isset($request->dayEnd)) {
+            return response()->json(Visita::whereIn('status', $status)
+                ->whereBetween('day', [$request->dayStart, $request->dayEnd])->get());
+        }
+
+        if (isset($request->dayStart)) {
+            return response()->json(Visita::whereIn('status', $status)
+                ->where('day', '=', $request->dayStart)->get());
+        }
+
+        return response()->json(Visita::whereIn('status', $status)->get());
     }
+
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  \App\Models\Visita  $visita
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit(Request $request, Visita $visita)
+    // {
+
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -201,14 +247,14 @@ class VisitaController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Visita  $visita
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Visita $visita)
-    {
-        //
-    }
+// /**
+//  * Remove the specified resource from storage.
+//  *
+//  * @param  \App\Models\Visita  $visita
+//  * @return \Illuminate\Http\Response
+//  */
+// public function destroy(Visita $visita)
+// {
+//     //
+// }
 }
