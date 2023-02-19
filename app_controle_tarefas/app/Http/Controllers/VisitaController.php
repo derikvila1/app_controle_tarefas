@@ -23,8 +23,24 @@ class VisitaController extends Controller
     {
 
         $user_id = auth()->user()->id;
-        $visitas = Visita::where('user_id', $user_id)->paginate(10);
-        return view('visita.index', ['visitas' => $visitas]);
+        $userType = json_decode(auth()->user()->roles)->type;
+        $userSpaces = json_decode(auth()->user()->roles)->spaces;
+
+        if ($userType === "reviewer") {
+            $visitas = Visita::where('day', '>=', now()->subDay())->paginate(20);
+            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+        }
+        if (count($userSpaces) > 0 && $userType === 'admin') {
+
+            $visitas = Visita::whereIn('space_id', $userSpaces)->orWhere('user_id', $user_id)
+                ->paginate(10);
+
+            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+        }
+        if ($userType === "user") {
+            $visitas = Visita::where('user_id', $user_id)->paginate(10);
+            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+        }
     }
 
     /**
@@ -55,7 +71,7 @@ class VisitaController extends Controller
             'grade',
             'age',
             'pcd',
-            'pcdType',
+            'pcdType'
         );
         $fileName = Str::uuid() . '.pdf';
         $dados['fileName'] = $fileName;
@@ -68,7 +84,7 @@ class VisitaController extends Controller
         $request->file->storeAs('documents', $fileName);
 
         $visita = Visita::create($dados);
-        
+
         return view('visita.show', ['visita' => $visita]);
 
     }
@@ -79,10 +95,28 @@ class VisitaController extends Controller
      * @param  \App\Models\Visita  $visita
      * @return \Illuminate\Http\Response
      */
-    public function show(Visita $visita)
+    public function show($id, Visita $visita)
     {
 
-        return view('visita.show', ['visita' => $visita]);
+
+        $user_id = auth()->user()->id;
+        $userType = json_decode(auth()->user()->roles)->type;
+        $userSpaces = json_decode(auth()->user()->roles)->spaces;
+        $spaces = Space::all();
+        $visita = Visita::find($id);
+
+        if ($userType === "reviewer") {
+            return view('visita.show', ['visita' => $visita, 'userType' => $userType, 'spaces' => $spaces]);
+        }
+
+        if (in_array($visita->space_id, $userSpaces) && $userType === 'admin') {
+            return view('visita.show', ['visita' => $visita, 'userType' => $userType, 'spaces' => $spaces]);
+        }
+
+        if ($visita->user_id === $user_id) {
+            return view('visita.show', ['visita' => $visita, 'userType' => $userType, 'spaces' => $spaces]);
+        }
+        return redirect()->route('visita.index');
 
     }
 
@@ -93,7 +127,18 @@ class VisitaController extends Controller
         // return $visita;
         return view('visita.show', ['visita' => $visita]);
     }
-  
+
+    public function cancelById(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        $id = $request->id;
+        $visita = Visita::find($id);
+        if ($visita->user_id === $user_id) {
+            $visita->status = 'canceled';
+            $visita->save();
+        }
+        return redirect()->route('visita.index');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -101,21 +146,59 @@ class VisitaController extends Controller
      * @param  \App\Models\Visita  $visita
      * @return \Illuminate\Http\Response
      */
-    public function edit(Visita $visita)
+    public function edit(Request $request, Visita $visita)
     {
-        //
+
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Visita  $visita
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visita $visita)
+    public function update(Request $request, $id)
     {
-        //
+        $dados = $request->all(
+            'day',
+            'hour',
+            'peopleNumber',
+            'name',
+            'grade',
+            'age',
+            'pcd',
+            'pcdType'
+        );
+        $dados['pcd'] = isset($dados['pcd']) ? true : false;
+        $dados['pcdType'] = isset($dados['pcdType']) ? $dados['pcdType'] : '';
+        $dados['space_id'] = $request->space;
+        $dados['spaceName'] = Space::find($dados['space_id'])->name;
+        $dados['status'] = $request->status;
+        $dados['obs'] = $request->obs;
+
+
+        $user_id = auth()->user()->id;
+        $userType = json_decode(auth()->user()->roles)->type;
+        $userSpaces = json_decode(auth()->user()->roles)->spaces;
+
+        if ($userType === "reviewer") {
+            Visita::where('id', $id)->update($dados);
+            return redirect()->route('visita.index');
+        }
+
+        if (in_array($request->space_id, $userSpaces) && $userType === 'admin') {
+            Visita::where('id', $id)->update($dados);
+            return redirect()->route('visita.index');
+        }
+
+        if ($request->user_id === $user_id) {
+            Visita::where('id', $id)->update($dados);
+            return redirect()->route('visita.index');
+        }
+
+        return redirect()->route('visita.index');
+
     }
 
     /**

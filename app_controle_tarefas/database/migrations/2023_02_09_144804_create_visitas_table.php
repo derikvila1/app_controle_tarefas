@@ -27,6 +27,7 @@ class CreateVisitasTable extends Migration
             $table->boolean('pcd')->default(false);
             $table->string('pcdType');
             $table->string('fileName');
+            $table->longText('obs')->default('');
             $table->timestamps();
         });
     }
