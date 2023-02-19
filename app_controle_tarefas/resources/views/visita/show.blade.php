@@ -8,6 +8,12 @@
             }
         }
     </style>
+    <?php
+    $user = json_decode(AUTH::user()->roles);
+    $userId = json_decode(AUTH::user()->id);
+    $userType = $user->type;
+   
+    ?>
     <script>
         const spaces = <?php echo $spaces; ?>;
         const visita = <?php echo $visita; ?>;
@@ -19,7 +25,8 @@
 
         window.addEventListener('DOMContentLoaded', async (event) => {
             if (visita) {
-
+                console.log(visita);
+                console.log(userType);
                 if (!['canceled', 'pending'].includes(visita?.status) && userType === 'user') {
                     let opt = document.createElement('option');
                     opt.value = visita?.status;
@@ -59,6 +66,11 @@
             }
 
         });
+
+        function handleSubmit() {
+            let form = document.getElementById('formVisita');
+            form.submit();
+        }
 
         function validateDatePicker(date, avoidValidation = false) {
             let errorSpan = document.getElementById('dateError')
@@ -224,7 +236,7 @@
 
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Declaração do diretor: </label>
-                                <a href="" class="list-group-item list-group-item-action">Declaração</a>
+                                <a href="{{route('showFile',$visita->id)}}" class="list-group-item list-group-item-action">Declaração</a>
 
                             </div>
 
@@ -244,18 +256,20 @@
 
                         </div>
 
-                        <div class="card-footer d-flex w-100 justify-content-around">
-                            @if ($userType === 'user')
-                                <button onclick="cancelRequest()" class="btn btn-danger hide-print"> Solicitar cancelamento
-                                </button>
-                            @else
-                                <button type='submit' class="btn btn-info hide-print">Editar</button>
-                            @endif
-
-                            <input class="btn btn-primary hide-print" type="button" value="Imprimir" name="print"
-                                onclick="printPage()" />
-                        </div>
                     </form>
+                    <div class="card-footer d-flex w-100 justify-content-around">
+                        @if ($userType === 'user')
+                            <button onclick="cancelRequest()" class="btn btn-danger hide-print"> Solicitar cancelamento
+                            </button>
+                        @else
+                            <button onclick="handleSubmit()" class="btn btn-info hide-print">Editar</button>
+                        @endif
+
+                        <input class="btn btn-primary hide-print" type="button" value="Imprimir" name="print"
+                            onclick="printPage()" />
+                    </div>
+
+
                 </div>
             </div>
         </div>

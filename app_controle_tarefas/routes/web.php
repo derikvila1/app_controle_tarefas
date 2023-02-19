@@ -52,6 +52,10 @@ Route::post('filtervisit', 'App\Http\Controllers\VisitaController@filterVisit')
     ->name('filterVisit')
     ->middleware('verified');
 
+Route::get('showFile/{id}', 'App\Http\Controllers\VisitaController@showFile')
+    ->name('showFile')
+    ->middleware('verified');
+
 Route::get('/mensagem-teste', function () {
     return new MensagemTesteMail();
     //Mail::to('atendimento@jorgesantana.net.br')->send(new MensagemTesteMail());
