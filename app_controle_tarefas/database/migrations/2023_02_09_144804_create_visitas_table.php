@@ -25,9 +25,9 @@ class CreateVisitasTable extends Migration
             $table->string('grade');
             $table->bigInteger('age');
             $table->boolean('pcd')->default(false);
-            $table->string('pcdType');
+            $table->string('pcdType')->nullable()->default('');
             $table->string('fileName');
-            $table->longText('obs')->default('');
+            $table->string('obs')->nullable()->default('');
             $table->timestamps();
         });
     }

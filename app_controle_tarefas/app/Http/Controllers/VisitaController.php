@@ -71,7 +71,8 @@ class VisitaController extends Controller
             'grade',
             'age',
             'pcd',
-            'pcdType'
+            'pcdType',
+           
         );
         $fileName = Str::uuid() . '.pdf';
         $dados['fileName'] = $fileName;
@@ -81,11 +82,12 @@ class VisitaController extends Controller
         $dados['spaceName'] = Space::find($dados['space_id'])->name;
         $dados['user_id'] = auth()->user()->id;
 
+        $dados['status'] = 'pending';
         $request->file->storeAs('documents', $fileName);
-
+        $spaces = Space::all();
         $visita = Visita::create($dados);
 
-        return view('visita.show', ['visita' => $visita]);
+        return view('visita.show', ['visita' => $visita, 'spaces'=>$spaces]);
 
     }
 
@@ -118,6 +120,24 @@ class VisitaController extends Controller
         }
         return redirect()->route('visita.index');
 
+    }
+
+    // // função para baixar arquivo de storage local
+    // public function downloadFile($id)
+    // {
+    //     $visita = Visita::find($id);
+    //     $fileName = $visita->fileName;
+    //     $path = storage_path('app/documents/' . $fileName);
+    //     return response()->download($path);
+    // }
+
+    public function showFile(Request $request)
+    {
+        $id = $request->id;
+        $visita = Visita::find($id);
+        $fileName = $visita->fileName;
+        $path = storage_path('app/documents/' . $fileName);
+        return response()->file($path);
     }
 
     public function consultById(Request $request)
