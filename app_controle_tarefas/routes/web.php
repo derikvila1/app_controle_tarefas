@@ -48,6 +48,9 @@ Route::get('cancel/{id}', 'App\Http\Controllers\VisitaController@cancelById')
     ->name('cancelById')
     ->middleware('verified');
 
+Route::post('filtervisit', 'App\Http\Controllers\VisitaController@filterVisit')
+    ->name('filterVisit')
+    ->middleware('verified');
 
 Route::get('/mensagem-teste', function () {
     return new MensagemTesteMail();
