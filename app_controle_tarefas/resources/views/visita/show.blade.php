@@ -12,7 +12,7 @@
     $user = json_decode(AUTH::user()->roles);
     $userId = json_decode(AUTH::user()->id);
     $userType = $user->type;
-   
+    
     ?>
     <script>
         const spaces = <?php echo $spaces; ?>;
@@ -25,8 +25,6 @@
 
         window.addEventListener('DOMContentLoaded', async (event) => {
             if (visita) {
-                console.log(visita);
-                console.log(userType);
                 if (!['canceled', 'pending'].includes(visita?.status) && userType === 'user') {
                     let opt = document.createElement('option');
                     opt.value = visita?.status;
@@ -236,7 +234,8 @@
 
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Declaração do diretor: </label>
-                                <a href="{{route('showFile',$visita->id)}}" class="list-group-item list-group-item-action">Declaração</a>
+                                <a href="{{ route('showFile', $visita->id) }}"
+                                    class="list-group-item list-group-item-action">Declaração</a>
 
                             </div>
 

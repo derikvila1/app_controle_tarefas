@@ -26,20 +26,22 @@ class VisitaController extends Controller
         $userType = json_decode(auth()->user()->roles)->type;
         $userSpaces = json_decode(auth()->user()->roles)->spaces;
 
+        $spaces = Space::all();
         if ($userType === "reviewer") {
             $visitas = Visita::where('day', '>=', now()->subDay())->paginate(20);
-            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType, 'spaces' => $spaces]);
         }
         if (count($userSpaces) > 0 && $userType === 'admin') {
 
             $visitas = Visita::whereIn('space_id', $userSpaces)->orWhere('user_id', $user_id)
                 ->paginate(10);
 
-            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+            return view('visita.index', ['visitas' => $visitas, 'userType' => $userType, 'spaces' => $spaces]);
         }
 
+
         $visitas = Visita::where('user_id', $user_id)->paginate(10);
-        return view('visita.index', ['visitas' => $visitas, 'userType' => $userType]);
+        return view('visita.index', ['visitas' => $visitas, 'userType' => $userType, 'spaces' => $spaces]);
 
     }
 
@@ -72,7 +74,7 @@ class VisitaController extends Controller
             'age',
             'pcd',
             'pcdType',
-           
+
         );
         $fileName = Str::uuid() . '.pdf';
         $dados['fileName'] = $fileName;
@@ -87,7 +89,7 @@ class VisitaController extends Controller
         $spaces = Space::all();
         $visita = Visita::create($dados);
 
-        return view('visita.show', ['visita' => $visita, 'spaces'=>$spaces]);
+        return view('visita.show', ['visita' => $visita, 'spaces' => $spaces]);
 
     }
 
@@ -168,42 +170,46 @@ class VisitaController extends Controller
      */
     public function filterVisit(Request $request)
     {
-        $userType = json_decode(auth()->user()->roles)->type;
-
 
         if (isset($request->id)) {
             return response()->json([Visita::find($request->id)]);
         }
 
         $status = isset($request->status) ? $request->status : ['pending', 'reviewed', 'confirmed', 'canceled'];
+        $spaces = isset($request->space) ? [$request->space] : Space::all('id');
 
         if (isset($request->dateMonth) && isset($request->dateYear)) {
             return response()->json(Visita::whereIn('status', $status)
+                ->whereIn('space_id', $spaces)
                 ->whereMonth('day', $request->dateMonth)
                 ->whereYear('day', $request->dateYear)->get());
         }
 
         if (isset($request->dateMonth)) {
             return response()->json(Visita::whereIn('status', $status)
+                ->whereIn('space_id', $spaces)
                 ->whereMonth('day', $request->dateMonth)->get());
         }
 
         if (isset($request->dateYear)) {
             return response()->json(Visita::whereIn('status', $status)
+                ->whereIn('space_id', $spaces)
                 ->whereYear('day', $request->dateYear)->get());
         }
 
         if (isset($request->dayStart) && isset($request->dayEnd)) {
             return response()->json(Visita::whereIn('status', $status)
+                ->whereIn('space_id', $spaces)
                 ->whereBetween('day', [$request->dayStart, $request->dayEnd])->get());
         }
 
         if (isset($request->dayStart)) {
             return response()->json(Visita::whereIn('status', $status)
+                ->whereIn('space_id', $spaces)
                 ->where('day', '=', $request->dayStart)->get());
         }
 
-        return response()->json(Visita::whereIn('status', $status)->get());
+        return response()->json(Visita::whereIn('status', $status)->whereIn('space_id', $spaces)->get());
     }
 
     // /**
