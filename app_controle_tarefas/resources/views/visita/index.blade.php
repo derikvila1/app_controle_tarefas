@@ -15,6 +15,12 @@
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
         }
+
+        @media print {
+            .hide-print {
+                display: none;
+            }
+        }
     </style>
     <script>
         const userId = '<?php echo $userId; ?>';
@@ -141,6 +147,7 @@
                     const link = document.createElement("a");
                     link.href = `<?php echo route('visita.show', ''); ?>/${visit.id}`;
                     link.innerHTML = 'Consultar';
+                    link.className = 'hide-print';
                     cell.appendChild(link);
                     row.appendChild(cell);
 
@@ -148,12 +155,18 @@
                 }
             }
         }
+
+        function printPage() {
+            print(document);
+        }
     </script>
     <div class="container">
-        <a href="visita/create" class="btn btn-outline-primary ml-4" role="button">Cadastrar Visita</a>
+        <a href="visita/create" class="btn btn-outline-primary ml-4 hide-print" role="button">Cadastrar Visita</a>
+
+        <button type="button" class="btn btn-secondary ml-4 hide-print" onclick="printPage()">Imprimir Listagem</button>
 
         @if ($type === 'admin' || $type === 'reviewer')
-            <div class="card-body border m-2">
+            <div class="card-body border m-2 hide-print">
                 <form method="POST" id="formFilter" onsubmit="event.preventDefault(); handleFilter()"
                     action="{{ route('filterVisit') }}" enctype="multipart/form-data">
                     @csrf
