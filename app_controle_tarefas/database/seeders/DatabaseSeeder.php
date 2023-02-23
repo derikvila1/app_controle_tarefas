@@ -20,12 +20,14 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => "David Vila",
                 'email' => "davidfma92@gmail.com",
+                'cellphone' => "92999999999",
                 'password' => Hash::make('123456'),
                 'email_verified_at' => date_create()
             ],
             [
                 'name' => "Derik Vila",
                 'email' => "derikvila@gmail.com",
+                'cellphone' => "92999062033",
                 'password' => Hash::make('123456'),
                 'email_verified_at' => date_create()
             ]

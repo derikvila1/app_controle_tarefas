@@ -15,9 +15,8 @@ use App\Controller\VisitaController;
 |
 */
 
-Route::get('/', function () {
-    return view('bem-vindo');
-});
+Route::get('/', [App\Http\Controllers\VisitaController::class, 'index'])
+    ->name('home');
 
 Auth::routes(['verify' => true]);
 
