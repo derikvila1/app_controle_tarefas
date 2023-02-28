@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
                 'name' => "David Vila",
                 'email' => "davidfma92@gmail.com",
                 'cellphone' => "92999999999",
+                'address'  => "endereço teste",
+                'zone' => "zona teste",
+                'institutionType' => "tipo de instituição teste",
                 'password' => Hash::make('123456'),
                 'email_verified_at' => date_create()
             ],
@@ -28,6 +31,9 @@ class DatabaseSeeder extends Seeder
                 'name' => "Derik Vila",
                 'email' => "derikvila@gmail.com",
                 'cellphone' => "92999062033",
+                'address'  => "endereço teste",
+                'zone' => "zona teste",
+                'institutionType' => "tipo de instituição teste",
                 'password' => Hash::make('123456'),
                 'email_verified_at' => date_create()
             ]
