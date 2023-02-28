@@ -154,6 +154,7 @@
             }
         }
     </script>
+<div class="container">
 
     <div class="card-body">
         <a href="visita/create" class="btn btn-outline-primary " role="button">Cadastrar Visita</a>
@@ -182,7 +183,7 @@
                             <label for="datePickerEnd" class="form-label mr-2">Data fim: </label>
                             <input id="datePickerEnd" type="date" class="form-control w-auto" name="dayEnd"
                                 onchange="">
-                        </div>
+                            </div>
                     </div>
                     <div class="border p-2 fit-content">
                         <div class="d-flex align-items-center justify-content-between">
@@ -199,7 +200,7 @@
                             <select id='dateYear' class="form-control" name="dateYear">
                                 <option value='-1'></option>
                                 @for ($i = date('Y'); $i < date('Y') + 5; $i++)
-                                    <option value='{{ $i }}'>{{ $i }}</option>
+                                <option value='{{ $i }}'>{{ $i }}</option>
                                 @endfor
                             </select>
                         </div>
@@ -211,7 +212,7 @@
 
             <div class="mb-4">
                 <p>Status:</p>
-
+                
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id='pending' name="status[]" value='pending'>
                     {{-- <input class="form-check-input" type="checkbox" name='pending' id="pending" value=true> --}}
@@ -279,7 +280,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        
         <nav>
             <ul class="pagination">
                 <li class="page-item"><a class="page-link" href="{{ $visitas->previousPageUrl() }}">Voltar</a></li>
@@ -289,9 +290,10 @@
                         <a class="page-link" href="{{ $visitas->url($i) }}">{{ $i }}</a>
                     </li>
                 @endfor
-
+                
                 <li class="page-item"><a class="page-link" href="{{ $visitas->nextPageUrl() }}">Avançar</a></li>
             </ul>
         </nav>
     </div>
+</div>
 @endsection
