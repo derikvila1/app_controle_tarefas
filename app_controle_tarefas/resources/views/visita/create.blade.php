@@ -17,7 +17,7 @@
             opt.value = -1;
             hourInput.appendChild(opt);
 
-            const spaceSchedules = JSON.parse(spaces[spaceSelected].schedules);
+            const spaceSchedules = JSON.parse(spaces.find(item => item.id == spaceSelected)?.schedules);
             const dayOfWeek = new Date(date).getDay();
             const hoursAvailable = spaceSchedules.find(value => value.day === dayOfWeek);
 
