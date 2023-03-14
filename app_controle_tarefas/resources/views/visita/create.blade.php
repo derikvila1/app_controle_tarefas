@@ -131,29 +131,89 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Idade :</label>
-                                <input id="ageInput" type="number" class="form-control" name="age" required
-                                    onchange="validateNumber(this.value,'ageInput')">
+                                <!-- <input id="ageInput" type="number" class="form-control" name="age" required
+                                    onchange="validateNumber(this.value,'ageInput')"> -->
+                                <select id='ageInput' class="form-control" name="age" required>
+                                    <option value="4 a 6 anos">4 a 6 anos</option>
+                                    <option value="7 a 10 anos">7 a 10 anos</option>
+                                    <option value="11 a 15 anos">11 a 15 anos</option>
+                                    <option value="a partir de 16 anos">a partir de 16 anos</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Declaração do diretor: </label>
+                                <label for="formFile" class="form-label">Deseja solicitar que junto à visita seja realizado um dos projetos educativos?  </label>
+                                <h6>(Obs.: Os projetos educativos abaixo são desenvolvidos nos espaços: Palácio Rio Negro e Centro Cultural dos Povos da Amazônia)</h6>
+                                <select id='ageInput' class="form-control" name="age" required>
+                                    <option value="É hora de Brincar">É hora de Brincar</option>
+                                    <option value="Piquenique no jardim">Piquenique no jardim</option>
+                                    <option value="Somente visita educativa">Somente visita educativa</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Anexar ofício da instituição solicitando a visita: </label>
+                                <h6>Endereçar ao Sr. Marcos Apolo Muniz - Secretário de Cultura e Economia Criativa</h6>
                                 <input name='file' class="form-control" type="file" id="formFile" accept=".pdf"
                                     required>
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label" for="pcdCheckBox">
-                                    Pessoa com deficienciência:
+                                    O grupo possui visitante com deficiência? Qual?:
                                 </label>
-                                <br>
-                                <input type="checkbox" class="form-check-input ml-1 " id="pcdCheckBox" name='pcd'>
+                                <div class="col-md-5">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Deficiência Visual
+                                </label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                Deficiência Motora
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                Deficiência Auditiva
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                Deficiência Cerebral
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                Deficiência Múltipla	
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                Outros
+                                </label>
+                            </div>
+                        </div>
+                          
+                            </div>
+
 
                             <div class="mb-3">
-                                <label class="form-label">Especifique a necessidade : </label>
-                                <input type="text" class="form-control" name="pcdType">
+                                <label class="form-label">Algum pedido em especial? Exemplo: visita educativa em outro idioma, visita técnica para conhecer a parte arquitetônica do
+                                espaço, conhecer a reserva técnica/acervo, visita educativa e assistir o ensaio da Orquestra, espaço para a turma lanchar ou
+                                outros. </label>
+                                <input type="text" class="form-control" name="name" required>
                             </div>
 
+            
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
 
                         </form>

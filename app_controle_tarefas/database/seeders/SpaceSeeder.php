@@ -17,7 +17,7 @@ class SpaceSeeder extends Seeder
         DB::table('spaces')->insert([
             [
                 'name' => "BIBLIOTECA PÚBLICA",
-                'available' => false,
+                'available' => true,
                 'schedules' => '[{
                     "day": 1,
                     "dayName": "terça-feira",
@@ -233,7 +233,7 @@ class SpaceSeeder extends Seeder
             ],
             [
                 'name' => "MUSEU CASA EDUARDO RIBEIRO",
-                'available' => false,
+                'available' => true,
                 'schedules' => '[{
                     "day": 1,
                     "dayName": "terça-feira",
@@ -381,7 +381,7 @@ class SpaceSeeder extends Seeder
             ],
             [
                 'name' => "USINA CHAMINÉ",
-                'available' => false,
+                'available' => true,
                 'schedules' => '[{
                     "day": 1,
                     "dayName": "terça-feira",
@@ -413,6 +413,40 @@ class SpaceSeeder extends Seeder
                     "lastHour": 17
                 }]'
             ],
+            [
+                'name' => "Biblioteca Infantil Emídio Vaz",
+                'available' => true,
+                'schedules' => '[{
+                    "day": 1,
+                    "dayName": "terça-feira",
+                    "firstHour": 9,
+                    "lastHour": 17
+                },
+                {
+                    "day": 2,
+                    "dayName": "quarta-feira",
+                    "firstHour": 9,
+                    "lastHour": 17
+                },
+                {
+                    "day": 3,
+                    "dayName": "quinta-feira",
+                    "firstHour": 9,
+                    "lastHour": 17
+                },    
+                {
+                    "day": 4,
+                    "dayName": "sexta-feira",
+                    "firstHour": 9,
+                    "lastHour": 17
+                },    
+                {
+                    "day": 5,
+                    "dayName": "sábado",
+                    "firstHour": 9,
+                    "lastHour": 17
+                }]'
+            ]
         ]);
     }
 }
