@@ -72,14 +72,14 @@ class VisitaController extends Controller
             'name',
             'grade',
             'age',
-            'pcd',
             'pcdType',
-
+            'obs',
+            'project',
         );
+
         $fileName = Str::uuid() . '.pdf';
         $dados['fileName'] = $fileName;
-        $dados['pcd'] = isset($dados['pcd']) ? true : false;
-        $dados['pcdType'] = isset($dados['pcdType']) ? $dados['pcdType'] : '';
+        $dados['pcdType'] = isset($dados['pcdType']) ? json_encode($dados['pcdType']) : '';
         $dados['space_id'] = $request->space;
         $dados['spaceName'] = Space::find($dados['space_id'])->name;
         $dados['user_id'] = auth()->user()->id;
@@ -239,16 +239,14 @@ class VisitaController extends Controller
             'name',
             'grade',
             'age',
-            'pcd',
-            'pcdType'
+            'pcdType',
+            'obs',
+            'project',
         );
-        $dados['pcd'] = isset($dados['pcd']) ? true : false;
-        $dados['pcdType'] = isset($dados['pcdType']) ? $dados['pcdType'] : '';
+        $dados['pcdType'] = isset($dados['pcdType']) ? json_encode($dados['pcdType']) : '';
         $dados['space_id'] = $request->space;
         $dados['spaceName'] = Space::find($dados['space_id'])->name;
         $dados['status'] = $request->status;
-        $dados['obs'] = $request->obs;
-
 
         $user_id = auth()->user()->id;
         $userType = json_decode(auth()->user()->roles)->type;

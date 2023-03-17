@@ -49,11 +49,24 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'cellphone' => ['required', 'string', 'min:11', 'max:11', ],
+            'address' => ['required', 'string', 'max:255'],
+            'cellphone' => [
+                'required',
+                'string',
+                'min:11',
+                'max:11',
+            ],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'zone' => ['required', 'string'],
+            'institutionType' => ['required', 'string', 'min:4'],
+            'publicTypeKids' => ['nullable', 'boolean'],
+            'publicTypeYoungs' => ['nullable', 'boolean'],
+            'publicTypeAdults' => ['nullable', 'boolean'],
+            'publicTypeOlds' => ['nullable', 'boolean'],
         ]);
     }
 
@@ -69,6 +82,13 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'cellphone' => $data['cellphone'],
+            'zone' => $data['zone'],
+            'address' => $data['address'],
+            'institutionType' => $data['institutionType'],
+            'publicTypeKids' => isset($data['publicTypeKids']) ? true : false,
+            'publicTypeYoungs' => isset($data['publicTypeYoungs']) ? true : false,
+            'publicTypeAdults' => isset($data['publicTypeAdults']) ? true : false,
+            'publicTypeOlds' => isset($data['publicTypeOlds']) ? true : false,
             'password' => Hash::make($data['password']),
         ]);
     }

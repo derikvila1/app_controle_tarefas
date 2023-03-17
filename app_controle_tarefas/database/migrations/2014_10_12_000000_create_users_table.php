@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('zone');
             $table->string('institutionType');
+            $table->boolean('publicTypeKids')->default(false);
+            $table->boolean('publicTypeYoungs')->default(false);
+            $table->boolean('publicTypeAdults')->default(false);
+            $table->boolean('publicTypeOlds')->default(false);
             $table->string('address');
             $table->string('email')->unique();
             $table->string('cellphone');

@@ -61,6 +61,9 @@
             if (value < 1) {
                 inputNumber.value = 1
             }
+            if (value > 40 && inputId === 'peopleNumber') {
+                inputNumber.value = 40
+            }
         }
 
 
@@ -132,7 +135,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Idade :</label>
                                 <!-- <input id="ageInput" type="number" class="form-control" name="age" required
-                                    onchange="validateNumber(this.value,'ageInput')"> -->
+                                                                        onchange="validateNumber(this.value,'ageInput')"> -->
                                 <select id='ageInput' class="form-control" name="age" required>
                                     <option value="4 a 6 anos">4 a 6 anos</option>
                                     <option value="7 a 10 anos">7 a 10 anos</option>
@@ -142,17 +145,20 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Deseja solicitar que junto à visita seja realizado um dos projetos educativos?  </label>
-                                <h6>(Obs.: Os projetos educativos abaixo são desenvolvidos nos espaços: Palácio Rio Negro e Centro Cultural dos Povos da Amazônia)</h6>
-                                <select id='ageInput' class="form-control" name="age" required>
+                                <label for="formFile" class="form-label">Deseja solicitar que junto à visita seja realizado
+                                    um dos projetos educativos? </label>
+                                <h6>(Obs.: Os projetos educativos abaixo são desenvolvidos nos espaços: Palácio Rio Negro e
+                                    Centro Cultural dos Povos da Amazônia)</h6>
+                                <select id='project' class="form-control" name="project" required>
+                                    <option value="Somente visita educativa">Somente visita educativa</option>
                                     <option value="É hora de Brincar">É hora de Brincar</option>
                                     <option value="Piquenique no jardim">Piquenique no jardim</option>
-                                    <option value="Somente visita educativa">Somente visita educativa</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Anexar ofício da instituição solicitando a visita: </label>
+                                <label for="formFile" class="form-label">Anexar ofício da instituição solicitando a visita:
+                                </label>
                                 <h6>Endereçar ao Sr. Marcos Apolo Muniz - Secretário de Cultura e Economia Criativa</h6>
                                 <input name='file' class="form-control" type="file" id="formFile" accept=".pdf"
                                     required>
@@ -163,57 +169,63 @@
                                     O grupo possui visitante com deficiência? Qual?:
                                 </label>
                                 <div class="col-md-5">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Deficiência Visual
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                Deficiência Motora
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                Deficiência Auditiva
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                Deficiência Cerebral
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                Deficiência Múltipla	
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                Outros
-                                </label>
-                            </div>
-                        </div>
-                          
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="visual" id="visual"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="visual">
+                                            Deficiência Visual
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="motora" id="motora"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="motora">
+                                            Deficiência Motora
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="auditiva" id="auditiva"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="auditiva">
+                                            Deficiência Auditiva
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="cerebral" id="cerebral"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="cerebral">
+                                            Deficiência Cerebral
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="multipla" id="multipla"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="multipla">
+                                            Deficiência Múltipla
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="outros" id="outros"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="outros">
+                                            Outros
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
 
 
                             <div class="mb-3">
-                                <label class="form-label">Algum pedido em especial? Exemplo: visita educativa em outro idioma, visita técnica para conhecer a parte arquitetônica do
-                                espaço, conhecer a reserva técnica/acervo, visita educativa e assistir o ensaio da Orquestra, espaço para a turma lanchar ou
-                                outros. </label>
-                                <input type="text" class="form-control" name="name" required>
+                                <label class="form-label">Algum pedido em especial? Exemplo: visita educativa em outro
+                                    idioma, visita técnica para conhecer a parte arquitetônica do
+                                    espaço, conhecer a reserva técnica/acervo, visita educativa e assistir o ensaio da
+                                    Orquestra, espaço para a turma lanchar ou
+                                    outros. </label>
+                                <input type="text" class="form-control" name="obs" required>
                             </div>
 
-            
+
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
 
                         </form>

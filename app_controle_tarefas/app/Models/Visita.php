@@ -18,10 +18,11 @@ class Visita extends Model
         'name',
         'grade',
         'age',
-        'pcd',
         'pcdType',
         'user_id',
-        'fileName'
+        'fileName',
+        'project',
+        'obs',
     ];
 
     public function user()

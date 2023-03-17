@@ -414,7 +414,7 @@ class SpaceSeeder extends Seeder
                 }]'
             ],
             [
-                'name' => "Biblioteca Infantil Emídio Vaz",
+                'name' => "BIBLIOTECA INFANTIL EMÍDIO VAZ",
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,

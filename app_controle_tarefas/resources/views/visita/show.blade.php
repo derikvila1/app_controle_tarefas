@@ -43,12 +43,18 @@
                 document.getElementById('peopleNumber').value = visita?.peopleNumber;
                 document.getElementById('name').value = visita?.name;
                 document.getElementById('grade').value = visita?.grade;
-                document.getElementById('ageInput').value = visita?.age;
-                document.getElementById('pcdCheckBox').checked = visita?.pcd;
-                document.getElementById('pcdType').value = visita?.pcdType;
                 document.getElementById('datePicker').disabled = false;
 
+                document.getElementById('project').value = visita?.project;
+                document.getElementById('ageInput').value = visita?.age;
+                if (visita?.pcdType) {
+                    const pcdTypes = JSON.parse(visita?.pcdType);
+                    pcdTypes.forEach(type => document.getElementById(type).checked = true);
+                }
+
                 if (userType === 'user') {
+                    const pcdTypes = ['visual', 'motora', 'auditiva', 'cerebral', 'multipla', 'outros'];
+
                     document.getElementById('status').disabled = true;
                     document.getElementById('obs').disabled = true;
                     document.getElementById('space').disabled = true;
@@ -58,8 +64,9 @@
                     document.getElementById('name').disabled = true;
                     document.getElementById('grade').disabled = true;
                     document.getElementById('ageInput').disabled = true;
-                    document.getElementById('pcdCheckBox').disabled = true;
-                    document.getElementById('pcdType').disabled = true;
+                    document.getElementById('project').disabled = true;
+                    pcdTypes.forEach(type => document.getElementById(type).disabled = true);
+
                 }
             }
 
@@ -228,8 +235,21 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Idade :</label>
-                                <input id="ageInput" type="number" class="form-control" name="age" required
-                                    onchange="validateNumber(this.value,'ageInput')">
+                                <select id='ageInput' class="form-control" name="age" required>
+                                    <option value="4 a 6 anos">4 a 6 anos</option>
+                                    <option value="7 a 10 anos">7 a 10 anos</option>
+                                    <option value="11 a 15 anos">11 a 15 anos</option>
+                                    <option value="a partir de 16 anos">a partir de 16 anos</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Deseja visita com projetos educativos? </label>
+                                <select id='project' class="form-control" name="project" required>
+                                    <option value="Somente visita educativa">Somente visita educativa</option>
+                                    <option value="É hora de Brincar">É hora de Brincar</option>
+                                    <option value="Piquenique no jardim">Piquenique no jardim</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">
@@ -241,15 +261,53 @@
 
                             <div class="mb-4">
                                 <label class="form-label" for="pcdCheckBox">
-                                    Pessoa com deficienciência:
+                                    O grupo possui visitante com deficiência? Qual?:
                                 </label>
-                                <br>
-                                <input type="checkbox" class="form-check-input ml-1 " id="pcdCheckBox" name='pcd'>
-                            </div>
+                                <div class="col-md-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="visual" id="visual"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="visual">
+                                            Deficiência Visual
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="motora" id="motora"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="motora">
+                                            Deficiência Motora
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="auditiva" id="auditiva"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="auditiva">
+                                            Deficiência Auditiva
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="cerebral" id="cerebral"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="cerebral">
+                                            Deficiência Cerebral
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="multipla" id="multipla"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="multipla">
+                                            Deficiência Múltipla
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="outros" id="outros"
+                                            name="pcdType[]">
+                                        <label class="form-check-label" for="outros">
+                                            Outros
+                                        </label>
+                                    </div>
+                                </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Especifique a necessidade : </label>
-                                <input id="pcdType" type="text" class="form-control" name="pcdType">
                             </div>
 
 
