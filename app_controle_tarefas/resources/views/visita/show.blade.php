@@ -42,6 +42,7 @@
                 document.getElementById('hourInput').value = hourSelection;
                 document.getElementById('peopleNumber').value = visita?.peopleNumber;
                 document.getElementById('name').value = visita?.name;
+                document.getElementById('cellphone').value = visita?.cellphone;
                 document.getElementById('grade').value = visita?.grade;
                 document.getElementById('datePicker').disabled = false;
 
@@ -62,6 +63,7 @@
                     document.getElementById('hourInput').disabled = true;
                     document.getElementById('peopleNumber').disabled = true;
                     document.getElementById('name').disabled = true;
+                    document.getElementById('cellphone').disabled = true;
                     document.getElementById('grade').disabled = true;
                     document.getElementById('ageInput').disabled = true;
                     document.getElementById('project').disabled = true;
@@ -226,10 +228,14 @@
                                 <label class="form-label">Nome do Responsável: </label>
                                 <input id='name' type="text" class="form-control" name="name" required>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telefone para contato : </label>
+                                <input id='cellphone' type="numer" class="form-control" name="cellphone" required>
+                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Série : </label>
-                                <input id='grade' type="text" class="form-control" name="grade" required>
+                                <input id='grade' type="number" class="form-control" name="grade" required>
                             </div>
 
 

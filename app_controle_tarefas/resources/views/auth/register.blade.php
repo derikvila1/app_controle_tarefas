@@ -28,6 +28,23 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="gestorName"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Nome do Gestor') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="gestorName" type="text"
+                                        class="form-control @error('gestorName') is-invalid @enderror" name="gestorName"
+                                        value="{{ old('gestorName') }}" required autocomplete="gestorName" autofocus>
+
+                                    @error('gestorName')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <!-- endereço -->
                             <div class="form-group row">
                                 <label for="address"

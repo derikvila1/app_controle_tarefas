@@ -22,6 +22,7 @@ class CreateVisitasTable extends Migration
             $table->string('hour');
             $table->bigInteger('peopleNumber');
             $table->string('name');
+            $table->string('cellphone');
             $table->string('grade');
             $table->string('age');
             $table->string('pcdType')->nullable()->default('');

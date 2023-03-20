@@ -127,7 +127,14 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Série : </label>
+                                <label class="form-label">{{ __('Telefone para contato :') }}</label>
+                                <input type="text" class="form-control" name="cellphone" required>
+
+                               
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Série / Ano : </label>
                                 <input type="text" class="form-control" name="grade" required>
                             </div>
 

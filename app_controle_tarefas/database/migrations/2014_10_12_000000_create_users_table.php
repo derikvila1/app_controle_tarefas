@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('gestorName');
             $table->string('zone');
             $table->string('institutionType');
             $table->boolean('publicTypeKids')->default(false);

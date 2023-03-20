@@ -16,6 +16,7 @@ class Visita extends Model
         'hour',
         'peopleNumber',
         'name',
+        'cellphone',
         'grade',
         'age',
         'pcdType',

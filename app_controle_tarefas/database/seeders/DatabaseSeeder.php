@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => "David Vila",
+                'gestorName' => "David Vila",
                 'email' => "davidfma92@gmail.com",
                 'cellphone' => "92999999999",
                 'address'  => "endereço teste",
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => "Derik Vila",
+                'gestorName' => "Derik Vila",
                 'email' => "derikvila@gmail.com",
                 'cellphone' => "92999062033",
                 'address'  => "endereço teste",
