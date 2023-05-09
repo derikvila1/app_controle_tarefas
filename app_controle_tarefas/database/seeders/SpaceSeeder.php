@@ -94,7 +94,7 @@ class SpaceSeeder extends Seeder
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,
-                    "dayName": "terça-feira",
+                    "dayName": "segunda-feira",
                     "firstHour": 9,
                     "lastHour": 17
                 },
@@ -121,14 +121,21 @@ class SpaceSeeder extends Seeder
                     "dayName": "sábado",
                     "firstHour": 9,
                     "lastHour": 17
-                }]'
+                },
+                {
+                    "day": 6,
+                    "dayName": "domingo",
+                    "firstHour": 9,
+                    "lastHour": 17
+                }
+                ]'
             ],
             [
                 'name' => "CENTRO CULTURAL PALÁCIO RIO NEGRO",
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,
-                    "dayName": "terça-feira",
+                    "dayName": "segunda-feira",
                     "firstHour": 9,
                     "lastHour": 17
                 },
@@ -155,10 +162,50 @@ class SpaceSeeder extends Seeder
                     "dayName": "sábado",
                     "firstHour": 9,
                     "lastHour": 17
+                },
+                {
+                    "day": 5,
+                    "dayName": "domingo",
+                    "firstHour": 9,
+                    "lastHour": 17
                 }]'
             ],
             [
                 'name' => "CENTRO CULTURAL POVOS DA AMAZÔNIA",
+                'available' => true,
+                'schedules' => '[{
+                    "day": 1,
+                    "dayName": "terça-feira",
+                    "firstHour": 9,
+                    "lastHour": 15
+                },
+                {
+                    "day": 2,
+                    "dayName": "quarta-feira",
+                    "firstHour": 9,
+                    "lastHour": 15
+                },
+                {
+                    "day": 3,
+                    "dayName": "quinta-feira",
+                    "firstHour": 9,
+                    "lastHour": 15
+                },    
+                {
+                    "day": 4,
+                    "dayName": "sexta-feira",
+                    "firstHour": 9,
+                    "lastHour": 15
+                },    
+                {
+                    "day": 5,
+                    "dayName": "sábado",
+                    "firstHour": 9,
+                    "lastHour": 15
+                }]'
+            ],
+            [
+                'name' => "MUSEU DO HOMEM DO NORTE",
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,
@@ -310,13 +357,13 @@ class SpaceSeeder extends Seeder
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,
-                    "dayName": "terça-feira",
+                    "dayName": "segunda-feira",
                     "firstHour": 9,
                     "lastHour": 17
                 },
                 {
                     "day": 2,
-                    "dayName": "quarta-feira",
+                    "dayName": "terça-feira",
                     "firstHour": 9,
                     "lastHour": 17
                 },
@@ -384,32 +431,32 @@ class SpaceSeeder extends Seeder
                 'available' => true,
                 'schedules' => '[{
                     "day": 1,
-                    "dayName": "terça-feira",
-                    "firstHour": 9,
+                    "dayName": "segunda-feira",
+                    "firstHour": 13,
                     "lastHour": 17
                 },
                 {
                     "day": 2,
-                    "dayName": "quarta-feira",
-                    "firstHour": 9,
+                    "dayName": "terça-feira",
+                    "firstHour": 13,
                     "lastHour": 17
                 },
                 {
                     "day": 3,
-                    "dayName": "quinta-feira",
-                    "firstHour": 9,
+                    "dayName": "quarta-feira",
+                    "firstHour": 13,
                     "lastHour": 17
                 },    
                 {
                     "day": 4,
-                    "dayName": "sexta-feira",
-                    "firstHour": 9,
+                    "dayName": "quinta-feira",
+                    "firstHour": 13,
                     "lastHour": 17
                 },    
                 {
                     "day": 5,
-                    "dayName": "sábado",
-                    "firstHour": 9,
+                    "dayName": "sexta-feira",
+                    "firstHour": 13,
                     "lastHour": 17
                 }]'
             ],

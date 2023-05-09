@@ -9,14 +9,16 @@
         function validateDatePicker(date) {
             let errorSpan = document.getElementById('dateError')
             let hourInput = document.getElementById('hourInput')
+           if(date){
 
-            while (hourInput.lastElementChild) {
-                hourInput.removeChild(hourInput.lastElementChild);
-            }
-            let opt = document.createElement('option');
-            opt.value = -1;
-            hourInput.appendChild(opt);
-
+               
+               while (hourInput.lastElementChild) {
+                   hourInput.removeChild(hourInput.lastElementChild);
+                }
+                let opt = document.createElement('option');
+                opt.value = -1;
+                hourInput.appendChild(opt);
+                
             const spaceSchedules = JSON.parse(spaces.find(item => item.id == spaceSelected)?.schedules);
             const dayOfWeek = new Date(date).getDay();
             const hoursAvailable = spaceSchedules.find(value => value.day === dayOfWeek);
@@ -35,8 +37,15 @@
                 opt = document.createElement('option');
                 opt.value = `${i}:00`;
                 opt.innerHTML = `${i}:00`;
-                hourInput.appendChild(opt);
+                if(opt.value == '12:00' ){
+                    
+                }
+              
+                else{
+                    hourInput.appendChild(opt);
+                }
             }
+        }
         }
 
         function spaceSelection(spaceId) {
@@ -48,6 +57,7 @@
             if (spaceSelected !== '-1') {
                 datePicker.disabled = false;
                 validateDatePicker(datePicker.value);
+                
                 return;
             }
             datePicker.disabled = true;
