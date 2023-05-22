@@ -3,9 +3,11 @@
 @section('content')
     <script>
         const spaces = <?php echo $spaces; ?>;
+        const visitas = <?php echo $visitas; ?>;
         let spaceSelected;
         let hourSelection;
 
+        console.log(visitas);
         function validateDatePicker(date) {
             let errorSpan = document.getElementById('dateError')
             let hourInput = document.getElementById('hourInput')
@@ -46,7 +48,9 @@
                 }
             }
         }
+        
         }
+
 
         function spaceSelection(spaceId) {
 
@@ -113,7 +117,8 @@
                                 <span class="d-none text-danger" id="dateError">Não haverá funcionamento na data
                                     selecionada!</span>
                                 <input id="datePicker" disabled type="date" class="form-control" name="day" required
-                                    onchange="validateDatePicker(this.value)">
+                                    onchange="validateDatePicker(this.value), listConfirmedHour()"
+                                   >
                                 <script></script>
                             </div>
 

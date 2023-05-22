@@ -6,7 +6,9 @@ use App\Models\Visita;
 use App\Models\Space;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmedMail;
 class VisitaController extends Controller
 {
 
@@ -53,7 +55,8 @@ class VisitaController extends Controller
     public function create()
     {
         $spaces = Space::where('available', 1)->get();
-        return view('visita.create', ['spaces' => $spaces]);
+        $visitas = Visita::where('status', 'confirmed')->get();
+        return view('visita.create', ['spaces' => $spaces, 'visitas' => $visitas]);
     }
 
     /**
@@ -149,6 +152,7 @@ class VisitaController extends Controller
         $visita = Visita::find($id);
         // return $visita;
         return view('visita.show', ['visita' => $visita]);
+        
     }
 
     public function cancelById(Request $request)
@@ -254,24 +258,40 @@ class VisitaController extends Controller
         $userType = json_decode(auth()->user()->roles)->type;
         $userSpaces = json_decode(auth()->user()->roles)->spaces;
 
+        $us = Visita::find($id);
+
+        $us2 = $us->user_id;
+
+        $us3 = User::find($us2);
+        $destinatario = $us3->email;
+        // dd($destinatario);
+        
         if ($userType === "reviewer") {
             Visita::where('id', $id)->update($dados);
             return redirect()->route('visita.index');
         }
 
-        if (in_array($request->space_id, $userSpaces) && $userType === 'admin') {
+        if (in_array($request->space, $userSpaces) && $userType === 'admin') {
             Visita::where('id', $id)->update($dados);
+
+            if($request->status === 'confirmed'){
+              
+                Mail::to($destinatario)->send(new ConfirmedMail($us));
+            }
+
             return redirect()->route('visita.index');
         }
 
         if ($request->user_id === $user_id) {
             Visita::where('id', $id)->update($dados);
+           
             return redirect()->route('visita.index');
         }
 
         return redirect()->route('visita.index');
 
     }
+
 
 // /**
 //  * Remove the specified resource from storage.
