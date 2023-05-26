@@ -8,9 +8,11 @@
         let hourSelection;
 
         console.log(visitas);
+
         function validateDatePicker(date) {
             let errorSpan = document.getElementById('dateError')
             let hourInput = document.getElementById('hourInput')
+            let spaceSelection = document.getElementById('space').value;
            if(date){
 
                
@@ -35,20 +37,32 @@
             errorSpan.classList.add("d-none");
             hourInput.disabled = false
 
-            for (let i = hoursAvailable.firstHour; i <= hoursAvailable.lastHour; i++) {
-                opt = document.createElement('option');
-                opt.value = `${i}:00`;
-                opt.innerHTML = `${i}:00`;
-                if(opt.value == '12:00' ){
+
+            console.log(spaceSelection);
+            console.log(date);
+
+
+            displayHour(spaceSelection,date);
+
+
+            // for (let i = hoursAvailable.firstHour; i <= hoursAvailable.lastHour; i++) {
+            //     opt = document.createElement('option');
+            //     opt.value = `${i}:00`;
+            //     opt.innerHTML = `${i}:00`;
+            //     if(opt.value == '12:00' ){
                     
-                }
+            //     }
               
-                else{
-                    hourInput.appendChild(opt);
-                }
-            }
+            //     else{
+            //         hourInput.appendChild(opt);
+            //     }
+            // }
         }
         
+        }
+
+        function displayHour(spaceSelection,date){
+          console.log(visitas[0].day);
         }
 
 
@@ -117,7 +131,7 @@
                                 <span class="d-none text-danger" id="dateError">Não haverá funcionamento na data
                                     selecionada!</span>
                                 <input id="datePicker" disabled type="date" class="form-control" name="day" required
-                                    onchange="validateDatePicker(this.value), listConfirmedHour()"
+                                    onchange="validateDatePicker(this.value)"
                                    >
                                 <script></script>
                             </div>
