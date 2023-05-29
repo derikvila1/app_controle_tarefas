@@ -7,7 +7,7 @@
         let spaceSelected;
         let hourSelection;
 
-        console.log(visitas);
+
 
         function validateDatePicker(date) {
             let errorSpan = document.getElementById('dateError')
@@ -38,31 +38,39 @@
             hourInput.disabled = false
 
 
-            console.log(spaceSelection);
-            console.log(date);
+            
+        var blockHour = [];
+            
+          visitas.forEach(visita => {
+           
+            if(visita.space_id == spaceSelection && visita.day == date){
+                blockHour.push(visita.hour);
+            }
+          });
 
 
-            displayHour(spaceSelection,date);
-
-
-            // for (let i = hoursAvailable.firstHour; i <= hoursAvailable.lastHour; i++) {
-            //     opt = document.createElement('option');
-            //     opt.value = `${i}:00`;
-            //     opt.innerHTML = `${i}:00`;
-            //     if(opt.value == '12:00' ){
+            for (let i = hoursAvailable.firstHour; i <= hoursAvailable.lastHour; i++) {
+                opt = document.createElement('option');
+                opt.value = `${i}:00`;
+                opt.innerHTML = `${i}:00`;
+                if(opt.value == '12:00' ){
                     
-            //     }
+                }
+                else if(blockHour.includes(opt.value)){
+                    
+                    opt.disabled = true;
+                    opt.innerHTML = `${i}:00 - Indisponível`;
+                    hourInput.appendChild(opt);
+                }
               
-            //     else{
-            //         hourInput.appendChild(opt);
-            //     }
-            // }
+                else{
+                    hourInput.appendChild(opt);
+                }
+            }
+
+    
         }
         
-        }
-
-        function displayHour(spaceSelection,date){
-          console.log(visitas[0].day);
         }
 
 
