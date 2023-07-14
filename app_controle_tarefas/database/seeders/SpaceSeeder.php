@@ -18,36 +18,38 @@ class SpaceSeeder extends Seeder
             [
                 'name' => "BIBLIOTECA PÚBLICA",
                 'available' => true,
-                'schedules' => '[{
-                    "day": 1,
-                    "dayName": "terça-feira",
-                    "firstHour": 9,
-                    "lastHour": 17
-                },
-                {
+                'schedules' => '[
+                    {
+                        "day": 1,
+                        "dayName": "segunda-feira",
+                        "firstHour": 8,
+                        "lastHour": 17
+                    },
+                    {
                     "day": 2,
-                    "dayName": "quarta-feira",
-                    "firstHour": 9,
+                    "dayName": "terça-feira",
+                    "firstHour": 8,
                     "lastHour": 17
                 },
                 {
                     "day": 3,
-                    "dayName": "quinta-feira",
-                    "firstHour": 9,
+                    "dayName": "quarta-feira",
+                    "firstHour": 8,
                     "lastHour": 17
-                },    
+                },
                 {
                     "day": 4,
-                    "dayName": "sexta-feira",
-                    "firstHour": 9,
+                    "dayName": "quinta-feira",
+                    "firstHour": 8,
                     "lastHour": 17
                 },    
                 {
                     "day": 5,
-                    "dayName": "sábado",
-                    "firstHour": 9,
+                    "dayName": "sexta-feira",
+                    "firstHour": 8,
                     "lastHour": 17
-                }]'
+                }    
+                ]'
             ],
             [
                 'name' => "CASA DAS ARTES",
@@ -121,12 +123,6 @@ class SpaceSeeder extends Seeder
                     "dayName": "sábado",
                     "firstHour": 9,
                     "lastHour": 17
-                },
-                {
-                    "day": 6,
-                    "dayName": "domingo",
-                    "firstHour": 9,
-                    "lastHour": 17
                 }
                 ]'
             ],
@@ -160,12 +156,6 @@ class SpaceSeeder extends Seeder
                 {
                     "day": 5,
                     "dayName": "sábado",
-                    "firstHour": 9,
-                    "lastHour": 17
-                },
-                {
-                    "day": 5,
-                    "dayName": "domingo",
                     "firstHour": 9,
                     "lastHour": 17
                 }]'
