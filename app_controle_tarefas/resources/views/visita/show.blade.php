@@ -89,8 +89,9 @@
             let opt = document.createElement('option');
             opt.value = -1;
             hourInput.appendChild(opt);
+            // console.log(spaceSelected);
 
-            const spaceSchedules = JSON.parse(spaces[spaceSelected].schedules);
+            const spaceSchedules = JSON.parse(spaces[spaceSelected-1].schedules);
             const dayOfWeek = new Date(date).getDay();
             const hoursAvailable = spaceSchedules.find(value => value.day === dayOfWeek);
 
