@@ -236,7 +236,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Série : </label>
-                                <input id='grade' type="number" class="form-control" name="grade" required>
+                                <input id='grade' type="text" class="form-control" name="grade" required>
                             </div>
 
 
